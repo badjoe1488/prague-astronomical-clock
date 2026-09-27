@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prague Astronomical Clock — Prazsky orloj</title>
+  <style>
+    :root {
+      --bg: #140e0a;
+      --gilt: #d4af37;
+      --gilt-dim: #8a7020;
+      --ink: #f3e6c4;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; min-height: 100%;
+      background: radial-gradient(ellipse at 50% 20%, #2a1c12, var(--bg) 60%);
+      color: var(--ink);
+      font-family: Palatino, Georgia, serif;
+    }
+    header {
+      padding: 14px 20px 8px;
+      display: flex; flex-wrap: wrap; gap: 8px 24px;
+      justify-content: space-between; align-items: baseline;
+      border-bottom: 1px solid #3a2e1c;
+    }
+    h1 { font-size: 1.15rem; margin: 0; letter-spacing: 0.12em; text-transform: uppercase; }
+    .sub { opacity: 0.7; font-size: 0.82rem; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(280px, 1fr) minmax(320px, 560px);
+      gap: 8px 24px; padding: 12px 16px 28px;
+      max-width: 1100px; margin: 0 auto; align-items: start;
+    }
+    @media (max-width: 820px) { .layout { grid-template-columns: 1fr; } }
+    canvas {
+      width: 100%; height: auto; background: #1a120c;
+      border: 1px solid #4a3a22; box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+    }
+    .panel { font-size: 0.95rem; line-height: 1.45; }
+    .panel h2 {
+      font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gilt); margin: 1.1em 0 0.35em;
+    }
+    .readout {
+      font-variant-numeric: tabular-nums; background: #1c140e;
+      border: 1px solid #3a2e1c; padding: 10px 12px; margin: 8px 0 12px;
+    }
+    .readout div { display: flex; justify-content: space-between; gap: 12px; }
+    .readout span { opacity: 0.7; }
+    .controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 16px; }
+    button {
+      background: #2a1c10; color: var(--ink); border: 1px solid var(--gilt-dim);
+      padding: 7px 12px; font: inherit; cursor: pointer;
+    }
+    button:hover { border-color: var(--gilt); color: #fff6d8; }
+    a { color: var(--gilt); }
+    footer { padding: 0 20px 24px; opacity: 0.65; font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Prazsky orloj</h1>
+    <span class="sub">Old Town Hall, Prague · 1410 · still ticking</span>
+  </header>
+  <div class="layout">
+    <div>
+      <canvas id="orloj" width="720" height="980" aria-label="Prague Astronomical Clock"></canvas>
+    </div>
+    <div class="panel">
+      <h2>Now</h2>
+      <div class="readout" id="readout"></div>
+      <div class="controls">
+        <button type="button" id="btnLive">Live</button>
+        <button type="button" id="btnHour">+1 hour</button>
+        <button type="button" id="btnDay">+1 day</button>
+        <button type="button" id="btnWalk">Walk</button>
+      </div>
+      <h2>Astronomical dial</h2>
+      <p>Stereographic astrolabe cut for ~50N. Blue is day, brown is night. The offset ring is the ecliptic. The gilt sun rides it; the moon carries its phase. Outer schwabacher numerals are Old Czech hours counted from sunset. The crooked interior lines are temporal hours.</p>
+      <h2>Calendar and zodiac</h2>
+      <p>Lower disc: month labor, tropical zodiac, and the civil date. Manes painted the real one in the 1860s.</p>
+      <h2>Apostle procession</h2>
+      <p>On the hour from 9 to 21, or whenever you hit Walk: twelve apostles in the upper windows, Death with the hourglass, then the rooster.</p>
+      <p><a href="orlog.html">Published Orlog map app</a> · <a href="https://github.com/badjoe1488/prague-astronomical-clock">Source</a></p>
+    </div>
+  </div>
+  <footer>Replica for study. Not the 1410 gear train.</footer>
+  <script src="clock.js"></script>
+</body>
+</html>
